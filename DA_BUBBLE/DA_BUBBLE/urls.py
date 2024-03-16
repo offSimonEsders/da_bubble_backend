@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from account.views import registerApiViewSet
 
 urlpatterns = [
+    path('register/', registerApiViewSet.as_view()),
     path('admin/', admin.site.urls),
 ]
