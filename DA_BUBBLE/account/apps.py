@@ -6,4 +6,4 @@ class AccountConfig(AppConfig):
     name = 'account'
     
     def ready(self):
-        from .signals import renameAvatarFile
+        from .signals import rename_avatar_file, remove_avatar_file
