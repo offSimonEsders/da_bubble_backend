@@ -1,11 +1,15 @@
+import json
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from .serializers import UserSerializer
 from rest_framework.response import Response
-from django.core import serializers
 
 from .models import DA_Bubble_User
+
+def save_image(image_data, file_path):
+    with open(file_path, 'wb') as f:
+        f.write(image_data)
 
 class registerApiViewSet(APIView):
     
@@ -14,5 +18,8 @@ class registerApiViewSet(APIView):
     queryset = DA_Bubble_User.objects.all()
     
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        return Response({'response': f'{serializer.is_valid()}'},status=status.HTTP_200_OK)
+        serializer = UserSerializer(data=request.data)  
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'response': 'sadasd'},status=status.HTTP_200_OK)
+        return Response()
