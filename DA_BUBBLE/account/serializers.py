@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import DA_Bubble_User
 from django.contrib.auth.hashers import make_password
 
+import os
+from .tasks import get_file_mime_type
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'})
     
