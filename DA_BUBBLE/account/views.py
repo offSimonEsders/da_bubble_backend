@@ -31,7 +31,7 @@ class loginApiViewSet(APIView):
     
     def post(self, request):
         user = DA_Bubble_User.objects.get(email=request.data.get('email'))
-        if(user.check_password(request.data.get('password'))):
+        if user and user.check_password(request.data.get('password')):
             token = Token.objects.get_or_create(user=user)
-            return Response({'authtoken': f'{token}'}, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_200_OK)
+            return Response({'authtoken': f'{token[0]}'}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
