@@ -35,3 +35,11 @@ class loginApiViewSet(APIView):
             token = Token.objects.get_or_create(user=user)
             return Response({'authtoken': f'{token[0]}'}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+class checkAuthTokenApiViewSet(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = DA_Bubble_User.objects.all()
+    
+    def post(self, request):
+        return Response(status=status.HTTP_200_OK)
